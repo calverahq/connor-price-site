@@ -46,10 +46,13 @@
   var hero = $('home'), heroMedia = $('heroMedia'), heroPlayer = null;
   function coverHero(){
     var f = heroMedia.querySelector('iframe'); if (!f) return;
-    // oversize by 35% so YouTube's title bar and corner logo fall outside the frame
-    var w = heroMedia.clientWidth * 1.35, h = heroMedia.clientHeight * 1.35;
+    // Oversize the video so YouTube's title bar and logo fall outside the frame, and on
+    // wide screens shift its center behind the globe so any YouTube spinner is hidden there.
+    var wide = heroMedia.clientWidth >= 820, k = wide ? 1.6 : 1.35;
+    var w = heroMedia.clientWidth * k, h = heroMedia.clientHeight * k;
     if (w / h > 16/9){ f.style.width = w + 'px'; f.style.height = Math.ceil(w * 9/16) + 'px'; }
     else { f.style.height = h + 'px'; f.style.width = Math.ceil(h * 16/9) + 'px'; }
+    f.style.left = wide ? '72%' : '50%';
   }
   if (S.hero.mp4){
     var v = document.createElement('video');
@@ -64,7 +67,9 @@
         playerVars: { autoplay:1, mute:1, controls:0, loop:1, playlist:S.hero.youtube, playsinline:1, rel:0, modestbranding:1, iv_load_policy:3, disablekb:1, start:S.hero.startAt || 0 },
         events: {
           onReady: function(e){ e.target.mute(); e.target.playVideo(); coverHero(); },
-          onStateChange: function(e){ if (e.data === 1) hero.classList.add('is-live'); }
+          // Only show the video while it is actually playing, so YouTube's play, pause and
+          // loading icons never appear over the hero (they show in other states).
+          onStateChange: function(e){ hero.classList.toggle('is-live', e.data === 1); }
         }
       });
     });
@@ -217,7 +222,7 @@
   /* ---------- videos ---------- */
   $('vids').innerHTML = S.videos.map(function(v, i){
     return '<div class="vid"><div class="vid-frame" data-yt="' + esc(v.youtube) + '">' +
-      (v.poster ? '<img src="' + esc(v.poster) + '" alt="">' : '') +
+      '<img src="' + esc(v.poster || ('https://i.ytimg.com/vi/' + v.youtube + '/maxresdefault.jpg')) + '" alt="" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://i.ytimg.com/vi/' + esc(v.youtube) + '/hqdefault.jpg\'}">' +
       '<button class="vid-play" type="button" aria-label="Play ' + esc(v.title) + ' video">' +
         '<span class="mono">Official video</span><span class="disc">' + PLAY_ICON.replace('currentColor','#0A0A0B') + '</span><span></span>' +
       '</button></div>' +
@@ -231,8 +236,19 @@
     fr.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&playsinline=1" title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
   });
   $('rail').innerHTML = S.feed.map(function(f){
-    return '<a class="reel" href="' + esc(f.url) + '" target="_blank" rel="noopener"><div class="reel-frame"><span class="mono">TikTok</span><span class="display">' + esc(f.title) + '</span></div><span class="mono">' + esc(f.meta) + '</span></a>';
+    var thumb = 'https://i.ytimg.com/vi/' + f.youtube + '/oardefault.jpg', alt = 'https://i.ytimg.com/vi/' + f.youtube + '/hqdefault.jpg';
+    return '<div class="reel"><div class="reel-frame" data-yt="' + esc(f.youtube) + '">' +
+      '<img src="' + esc(thumb) + '" alt="" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + esc(alt) + '\'}">' +
+      '<button class="reel-play" type="button" aria-label="Play ' + esc(f.title) + '"><span class="mono">Short</span><span class="disc">' + PLAY_ICON.replace('currentColor','#0A0A0B') + '</span><span class="display">' + esc(f.title) + '</span></button>' +
+      '</div><span class="mono">' + esc(f.views) + '</span></div>';
   }).join('');
+  $('rail').addEventListener('click', function(e){
+    var b = e.target.closest('.reel-play'); if (!b) return;
+    var fr = b.parentNode, id = fr.dataset.yt;
+    if (yt.failed){ window.open('https://www.youtube.com/shorts/' + id, '_blank', 'noopener'); return; }
+    stopAll(); setPlaying(false);
+    fr.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&playsinline=1&loop=1&playlist=' + encodeURIComponent(id) + '" title="YouTube Short" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+  });
 
   /* ---------- tour ---------- */
   function renderShows(list, upcoming){

@@ -175,11 +175,9 @@ body.is-playing .is-current .eq b,body.is-playing .dock .eq b{animation:eq .9s e
 @media(max-width:560px){.vids{grid-template-columns:minmax(0,1fr)}.vid:first-child{grid-column:auto}}
 .rail-head{margin-top:72px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:12px}
 .rail{margin-top:24px;display:flex;gap:18px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
-.reel{flex:0 0 220px;scroll-snap-align:start;text-decoration:none}
+.reel{flex:0 0 220px;scroll-snap-align:start}
 .reel-frame{aspect-ratio:9/16;border-radius:16px;border:1px solid var(--line);background:var(--raise);background-image:repeating-linear-gradient(135deg, rgba(242,238,230,.045) 0 1px, transparent 1px 14px);position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .reel:hover .reel-frame{transform:translateY(-6px) rotate(-1deg)}
-.reel-frame .mono{position:absolute;top:12px;left:12px;color:var(--mute)}
-.reel-frame .display{position:absolute;left:14px;right:14px;bottom:14px;font-size:24px;line-height:1.02}
 .reel > .mono{display:block;margin-top:10px;color:var(--mute)}
 
 /* tour */
@@ -280,3 +278,14 @@ body.is-playing .ctl-play .i-play{display:none}
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
 }
+
+/* reels: real thumbnails + inline play */
+.reel-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.reel-play{position:absolute;inset:0;width:100%;border:0;cursor:pointer;padding:14px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(180deg, rgba(10,10,11,.35) 0%, rgba(10,10,11,0) 30%, rgba(10,10,11,0) 55%, rgba(10,10,11,.9) 100%);color:var(--paper)}
+.reel-play .mono{color:var(--paper)}
+.reel-play .disc{align-self:center;width:58px;height:58px;border-radius:50%;background:var(--accent);display:grid;place-items:center;transition:transform .25s}
+.reel-play:hover .disc{transform:scale(1.08)}
+.reel-play .display{font-size:22px;line-height:1.02}
+.vid-play{background:linear-gradient(180deg, rgba(10,10,11,.45) 0%, rgba(10,10,11,0) 35%, rgba(10,10,11,0) 70%, rgba(10,10,11,.35) 100%)}
+.vid-play .mono{color:var(--paper)}

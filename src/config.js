@@ -75,12 +75,16 @@ window.CP_SITE = {
     { title: "Trendsetter", with: "with Haviah Mighty", views: "16.5M views", youtube: "PyrX8c1HGZw", poster: "" }
   ],
 
+  // Vertical rail: YouTube Shorts from @ConnorPrice_ (thumbnail + inline play).
   feed: [
-    { title: "Spin the Globe series", meta: "Playlist · 17 posts", url: "https://www.tiktok.com/@connorprice__" },
-    { title: "Demo vs. Final", meta: "Playlist", url: "https://www.tiktok.com/@connorprice__" },
-    { title: "Weird brother series", meta: "Playlist", url: "https://www.tiktok.com/@connorprice__" },
-    { title: "Violet in Shanghai", meta: "Tour clip", url: "https://www.tiktok.com/@connorprice__" },
-    { title: "Trendsetter", meta: "Post", url: "https://www.tiktok.com/@connorprice__/video/7317762582205484331" }
+    { title: "Scoop live", views: "4.3M views", youtube: "EhKY-vtpctA" },
+    { title: "When in doubt, do both", views: "2.5M views", youtube: "LRCcXiMaDEk" },
+    { title: "Had to stop the show again", views: "910K views", youtube: "sM58BrNOX78" },
+    { title: "I made a song with Reacher", views: "827K views", youtube: "SX4z6cMaCYY" },
+    { title: "Scoop on tour", views: "635K views", youtube: "B9ac82v_O6c" },
+    { title: "The Ping Pong Guys", views: "510K views", youtube: "WAcn9jHeX94" },
+    { title: "Paperboys, the album", views: "368K views", youtube: "m795Qscu7do" },
+    { title: "Team Canada's World Cup song", views: "289K views", youtube: "_6I82rMZOzE" }
   ],
 
   tour: {
@@ -105,14 +109,15 @@ window.CP_SITE = {
     domain: "connorprice.shop",
     storefrontToken: "",            // Shopify Storefront API public token turns on live products + cart
     apiVersion: "2025-01",
+    // Snapshot of connorprice.shop (Oct 26, 2026). Live data replaces it once storefrontToken is set.
     fallback: [
-      { name: "About Time Vinyl (Signed)", price: "$50", soldOut: false, image: "", url: "https://connorprice.shop/collections/all" },
-      { name: "Iconic / Till Next Time Vinyl", price: "$30", soldOut: false, image: "https://connorprice.shop/cdn/shop/files/CP-Vinyl-Signed-Front.png", url: "https://connorprice.shop/collections/all" },
-      { name: "Iconic Tour Jersey", price: "$60", soldOut: true, image: "https://connorprice.shop/cdn/shop/files/CP-2026IconicTourJersey-Black-Stacked.png", url: "https://connorprice.shop/collections/all" },
-      { name: "Iconic Tour Hoodie", price: "$70", soldOut: false, image: "", url: "https://connorprice.shop/collections/all" },
-      { name: "Iconic Tour Tee", price: "$40", soldOut: false, image: "", url: "https://connorprice.shop/collections/all" },
-      { name: "Iconic Tour Hat", price: "$40", soldOut: true, image: "", url: "https://connorprice.shop/collections/all" },
-      { name: "Iconic Tour Tote", price: "$25", soldOut: false, image: "", url: "https://connorprice.shop/collections/all" }
+      { name: "About Time Vinyl (Signed)", price: "$50", soldOut: false, image: "https://cdn.shopify.com/s/files/1/1026/5211/7360/files/AboutTime_SignedVinyl_TS.png?v=1788290900", url: "https://connorprice.shop/products/about-time-vinyl" },
+      { name: "Iconic / Till Next Time Vinyl", price: "$50", soldOut: false, image: "https://cdn.shopify.com/s/files/1/1026/5211/7360/files/CP-Vinyl-Signed-Front.png?v=1784232337", url: "https://connorprice.shop/products/iconic-till-next-time-vinyl" },
+      { name: "Iconic Tour Hoodie", price: "$70", soldOut: false, image: "https://cdn.shopify.com/s/files/1/1026/5211/7360/files/CP-2026IconicTourHoodie-Stacked.png?v=1784232331", url: "https://connorprice.shop/products/tour-hoodie" },
+      { name: "Iconic Tour Tee", price: "$40", soldOut: false, image: "https://cdn.shopify.com/s/files/1/1026/5211/7360/files/CP-2026IconicTourTee-White-Stacked.png?v=1784232331", url: "https://connorprice.shop/products/tour-tee" },
+      { name: "Iconic Tour Jersey", price: "$60", soldOut: true, image: "https://cdn.shopify.com/s/files/1/1026/5211/7360/files/CP-2026IconicTourJersey-Black-Stacked.png?v=1784232219", url: "https://connorprice.shop/products/tour-jersey-copy" },
+      { name: "Iconic Tour Hat", price: "$40", soldOut: true, image: "https://cdn.shopify.com/s/files/1/1026/5211/7360/files/TourHat.jpg?v=1783616016", url: "https://connorprice.shop/products/tour-hat" },
+      { name: "Iconic Tour Tote", price: "$25", soldOut: false, image: "https://cdn.shopify.com/s/files/1/1026/5211/7360/files/CP-2026IconicTourTote-Natural.png?v=1784232342", url: "https://connorprice.shop/products/tour-tote" }
     ]
   },
 
