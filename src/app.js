@@ -45,7 +45,8 @@
   var hero = $('home'), heroMedia = $('heroMedia'), heroPlayer = null;
   function coverHero(){
     var f = heroMedia.querySelector('iframe'); if (!f) return;
-    var w = heroMedia.clientWidth, h = heroMedia.clientHeight;
+    // oversize by 35% so YouTube's title bar and corner logo fall outside the frame
+    var w = heroMedia.clientWidth * 1.35, h = heroMedia.clientHeight * 1.35;
     if (w / h > 16/9){ f.style.width = w + 'px'; f.style.height = Math.ceil(w * 9/16) + 'px'; }
     else { f.style.height = h + 'px'; f.style.width = Math.ceil(h * 16/9) + 'px'; }
   }
