@@ -3,21 +3,20 @@
 Built and maintained by [Calvera HQ](https://calverahq.com). Hosted on the Calvera HQ HighLevel account.
 
 ## How it's wired
-HighLevel page **Connor Price → Home** has one Custom Code element:
+HighLevel page **Connor Price → Home** has one Custom Code element containing `loader.html`:
 
 ```html
-<script>(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/calverahq/connor-price-site@main/dist/cp-site.js?v='+Math.floor(Date.now()/6e5);var c=document.currentScript;c.parentNode.insertBefore(s,c.nextSibling);})();</script>
+<script>(function(){var c=document.currentScript,b='https://cdn.jsdelivr.net/gh/calverahq/connor-price-site@';function go(v){var s=document.createElement('script');s.src=b+v+'/dist/cp-site.js';c.parentNode.insertBefore(s,c.nextSibling);}fetch('https://api.github.com/repos/calverahq/connor-price-site/commits/main').then(function(r){return r.ok?r.json():Promise.reject();}).then(function(d){go(d.sha);},function(){go('main');});})();</script>
 ```
-The `?v=` changes every 10 minutes so visitors' browsers never hold an old copy.
+
+It asks GitHub for the latest commit on `main` and loads exactly that build from jsDelivr, so a push is live on the next page load, with no cache purge. If GitHub is unreachable it falls back to `@main`.
 
 That bundle builds the whole page. Nothing else needs to change in HighLevel.
 
 ## Update the site
 1. Edit `src/config.js` — the single source of truth for tracks, collabs, globe cities, videos, tour, merch, links and stats.
 2. `python3 build.py` → rebuilds `dist/cp-site.js` and `dist/index.html`.
-3. Commit and push to `main`.
-4. Clear the CDN cache so the change is live in about a minute: open
-   `https://purge.jsdelivr.net/gh/calverahq/connor-price-site@main/dist/cp-site.js`
+3. Commit and push to `main`. It's live on the next page load.
 
 ## Turn on live hookups (in `src/config.js`, each falls back cleanly when blank)
 | Key | Does | From |
