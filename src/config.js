@@ -8,6 +8,7 @@
    ========================================================================== */
 window.CP_SITE = {
   updated: "2026-10-26",
+  title: "Connor Price | Official Site",
   maintainer: { name: "Calvera HQ", url: "https://calverahq.com" },
 
   hero: {

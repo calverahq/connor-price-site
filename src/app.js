@@ -1,5 +1,6 @@
 (function(){
   var S = window.CP_SITE;
+  if (!document.title || /^https?:/.test(document.title)) document.title = S.title || 'Connor Price';
   var $ = function(id){ return document.getElementById(id); };
   var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
   var fmt = function(t){ t = Math.max(0, Math.floor(t || 0)); return Math.floor(t/60) + ':' + String(t%60).padStart(2,'0'); };

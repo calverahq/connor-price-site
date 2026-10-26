@@ -6,8 +6,9 @@ Built and maintained by [Calvera HQ](https://calverahq.com). Hosted on the Calve
 HighLevel page **Connor Price → Home** has one Custom Code element:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/calverahq/connor-price-site@main/dist/cp-site.js"></script>
+<script>(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/calverahq/connor-price-site@main/dist/cp-site.js?v='+Math.floor(Date.now()/6e5);var c=document.currentScript;c.parentNode.insertBefore(s,c.nextSibling);})();</script>
 ```
+The `?v=` changes every 10 minutes so visitors' browsers never hold an old copy.
 
 That bundle builds the whole page. Nothing else needs to change in HighLevel.
 
